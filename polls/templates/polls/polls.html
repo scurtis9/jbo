@@ -1,0 +1,8 @@
+{% extends 'polls/base.html' %}
+{% block content %}
+    <div class="content-section">
+    {% for question in questions %}
+        <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+    {% endfor %}
+    </div>
+{% endblock content %}

@@ -1,0 +1,24 @@
+{% extends 'homepage/base.html' %}
+{%  load crispy_forms_tags %}
+{% block content %}
+    <h1>{{ post.title }}</h1>
+    <div class="content-section col-md-8"><p>{{ post.content|linebreaks }}</p></div>
+    <h3>Leave a comment:</h3>
+    <form action="{% url 'blog:detail' post.pk %}" method="post">
+        {% csrf_token %}
+        <div class="form-group col-md-8">
+            {{ form|crispy }}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    <h3>Comments:</h3>
+    <div class="content-section">
+        {% for comment in comments %}
+    <p>
+        On {{comment.created_on.date }}&nbsp;
+        <b>{{ comment.author }}</b> wrote:
+    </p>
+    <p>{{ comment.body }}</p>
+    <hr>
+    {% endfor %}
+        </div>
+{%  endblock content %}
