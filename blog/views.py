@@ -14,21 +14,25 @@ class PostListView(generic.ListView):
         return Post.objects.all()
 
 
-class PostDetailView(generic.edit.FormMixin, generic.DetailView):
+class PostDisplay(generic.DetailView):
+    template_name = 'blog/post_detail.html'
     model = Post
-    template_name = 'blog/detail.html'
-    form_class = CommentForm
 
-    def get_success_url(self):
-        return reverse('blog:detail', kwargs={'pk': self.object.pk})
+    def get_object(self):
+        obj = super().get_object()
+        obj.save()
+        return obj
 
     def get_context_data(self, **kwargs):
-        context = super(PostDetailView, self).get_context_data(**kwargs)
-        context['form'] = CommentForm(initial={
-            'post': self.object
-        })
+        context = super().get_context_data(**kwargs)
         context['comments'] = Comment.objects.filter(post=self.object)
         return context
+
+
+class PostComment(generic.detail.SingleObjectMixin, generic.FormView):
+    template_name = 'blog/detail.html'
+    form_class = CommentForm
+    model = Post
 
     def post(self, request, *args, **kwargs):
         self.object = self.get_object()
@@ -41,7 +45,29 @@ class PostDetailView(generic.edit.FormMixin, generic.DetailView):
 
     def form_valid(self, form):
         form.save()
-        return super(PostDetailView, self).form_valid(form)
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm(initial={
+            'post': self.object
+        })
+        context['comments'] = Comment.objects.filter(post=self.object)
+        return context
+
+    def get_success_url(self):
+        return reverse('blog:detail', kwargs={'pk': self.object.pk})
+
+
+class PostDetailView(generic.View):
+
+    def get(self, request, *args, **kwargs):
+        view = PostDisplay.as_view()
+        return view(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        view = PostComment.as_view()
+        return view(request, *args, **kwargs)
 
 
 class PostCategoryListView(generic.ListView):
