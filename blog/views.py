@@ -9,6 +9,7 @@ from .models import Post, Category, Comment
 class PostListView(generic.ListView):
     template_name = 'blog/posts.html'
     context_object_name = 'posts'
+    ordering = ['-date_posted']
 
     def get_queryset(self):
         return Post.objects.all()

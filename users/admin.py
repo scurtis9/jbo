@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
 
 from .forms import JboUserCreationForm, JboUserChangeForm
-from .models import JboUser
+from .models import JboUser, Profile
 
 
 class JboUserAdmin(UserAdmin):
@@ -14,3 +14,4 @@ class JboUserAdmin(UserAdmin):
 
 
 admin.site.register(JboUser, JboUserAdmin)
+admin.site.register(Profile)
