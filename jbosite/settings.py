@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    #Local
+    'users.apps.UsersConfig',
     'homepage.apps.HomepageConfig',
     'blog.apps.BlogConfig',
     'polls.apps.PollsConfig'
@@ -84,7 +87,8 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
 }
-
+# User Validation
+AUTH_USER_MODEL = 'users.JboUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/2.2/ref/settings/#auth-password-validators

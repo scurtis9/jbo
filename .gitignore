@@ -5,6 +5,7 @@ __pycache__/
 *.py[cod]
 *$py.class
 /.idea/
+/.DS_Store
 
 # Distribution / packaging
 .Python
@@ -50,9 +51,6 @@ coverage.xml
 .hypothesis/
 .pytest_cache/
 
-# Translations
-*.mo
-*.pot
 
 # Django stuff:
 *.log
@@ -60,17 +58,8 @@ local_settings.py
 db.sqlite3
 
 # Environments
-.env
-.venv
-env/
 venv/
-ENV/
-env.bak/
-venv.bak/
 
-
-# mkdocs documentation
-/site
 
 # mypy
 .mypy_cache/
