@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'markdownx',
 
     #Local
     'users.apps.UsersConfig',
@@ -139,6 +140,13 @@ LOGIN_REDIRECT_URL = 'homepage:home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'homepage:home'
 
 ACCOUNT_FORMS = {'signup': 'forms.forms.MyCustomSignupForm'}
+
+MARKDOWNX_MARKDOWN_EXTENSIONS = []
+MARKDOWNX_MEDIA_PATH = 'markdownx/' # subdirectory, where images will be stored in MEDIA_ROOT folder
+MARKDOWNX_UPLOAD_MAX_SIZE = 52428800 # 50MB
+MARKDOWNX_UPLOAD_CONTENT_TYPES = ['image/jpeg', 'image/png']
+MARKDOWNX_IMAGE_MAX_SIZE = {'size': (500, 500), 'quality': 90,}
+MARKDOWNX_EDITOR_RESIZABLE = True # update editor's height to inner content height while typing
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/

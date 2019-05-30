@@ -18,11 +18,9 @@ from .models import Post, Category, Comment
 
 class PostListView(ListView):
     template_name = 'blog/posts.html'
+    model = Post
     context_object_name = 'posts'
     ordering = ['-date_posted']
-
-    def get_queryset(self):
-        return Post.objects.all()
 
 
 class PostDisplay(DetailView):
