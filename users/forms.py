@@ -7,7 +7,7 @@ class JboUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = JboUser
-        fields = ('username', 'email')
+        fields = ('username', 'email', 'first_name', 'last_name')
 
 
 class JboUserChangeForm(UserChangeForm):

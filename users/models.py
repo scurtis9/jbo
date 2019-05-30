@@ -7,6 +7,9 @@ from PIL import Image
 class JboUser(AbstractUser):
     pass
 
+    def __str__(self):
+        return self.email
+
 
 class Profile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
@@ -15,9 +18,8 @@ class Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def save(self, force_insert=False, force_update=False, using=None,
-             update_fields=None):
-        super().save()
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
         img = Image.open(self.image.path)
 
