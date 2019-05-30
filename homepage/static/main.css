@@ -36,6 +36,10 @@ ul {
   margin-bottom: 20px;
 }
 
+.dropdown-toggle::after {
+  content: none;
+}
+
 .article-title {
   color: #444444;
 }
@@ -81,4 +85,9 @@ a.article-title:hover {
 
 .account-heading {
   font-size: 2.5rem;
+}
+
+.Avatar {
+  display: block;
+  border-radius: 50%;
 }

@@ -33,14 +33,17 @@
                 <div class="navbar-nav">
                     {% if user.is_authenticated %}
                         <div class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                            <a class="navbar-brand nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                {{ user.get_full_name }}
+                                <img class="Avatar" src="{{ user.profile.image.url }}" width="32" height="32" alt="">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                                 <a class="dropdown-item" href="{% url 'users:profile' user.id %}">Profile</a>
                                 <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
                             </div>
+                        </div>
+                        <div class="nav-item">
+                            <a href="{% url 'blog:post-create' %}" class="btn btn-primary active" role="button" aria-pressed="true">New Post</a>
                         </div>
                     {% else %}
                         <a class="nav-item nav-link" href="{% url 'account_login' %}">Login</a>

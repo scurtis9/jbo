@@ -1,22 +1,48 @@
-{% extends 'homepage/base.html' %}
-{%  load crispy_forms_tags %}
+{% extends "homepage/base.html" %}
+{% load crispy_forms_tags %}
 {% block content %}
-    <h1>{{ post.title }}</h1>
-    <div class="content-section col-md-8"><p>{{ post.content|linebreaks }}</p></div>
-{#    <h4><a href="{% url 'blog:detail' post.pk %}">Leave a comment</a></h4>#}
-    <form action="{% url 'blog:detail' post.pk %}" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary">Leave a Comment</button>
-    </form>
-    <h3>Comments:</h3>
-    <div class="content-section">
-        {% for comment in comments %}
-    <p>
-        On {{comment.created_on.date }}&nbsp;
-        <b>{{ comment.author }}</b> wrote:
-    </p>
-    <p>{{ comment.body }}</p>
-    <hr>
-    {% endfor %}
+    <article class="media content-section">
+        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+        <div class="media-body">
+            <div class="article-metadata">
+                <a class="mr-2" href="#">{{ object.author.get_full_name }}</a>
+                <small class="text-muted">{{ object.date_posted|date:"F d, Y" }}</small>
+                {% if object.author == user %}
+                    <div>
+                        <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'blog:post-update' object.id %}">Update</a>
+                        <a class="btn btn-danger btn-sm mt-1 mb-1"
+                           href="{% url 'blog:post-delete' object.id %}">Delete</a>
+                    </div>
+                {% endif %}
+            </div>
+            <h2 class="article-title">{{ object.title }}</h2>
+            <p class="article-content">{{ object.content }}</p>
         </div>
-{%  endblock content %}
+    </article>
+    {% if user.is_authenticated %}
+    <h3>Leave a comment:</h3>
+    <div>
+        <form action="{% url 'blog:detail' post.pk %}" method="post">
+            {% csrf_token %}
+            <div class="form-group col-md-8">
+                {{ form|crispy }}
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+        {% else %}
+        <p><a href="{% url 'account_login' %}?next={{ request.path }}">You must be logged in to leave a comment</a></p>
+    {% endif %}
+    {% if comments.all %}
+        <h3>Comments:</h3>
+        <div class="content-section">
+            {% for comment in comments %}
+                <p>
+                    On {{ comment.created_on.date }}&nbsp;
+                    <b>{{ comment.author }}</b> wrote:
+                </p>
+                <p>{{ comment.body }}</p>
+                <hr>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock content %}
