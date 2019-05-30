@@ -138,6 +138,8 @@ LOGIN_URL = 'login'
 LOGIN_REDIRECT_URL = 'homepage:home'
 ACCOUNT_LOGOUT_REDIRECT_URL = 'homepage:home'
 
+ACCOUNT_FORMS = {'signup': 'forms.forms.MyCustomSignupForm'}
+
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
