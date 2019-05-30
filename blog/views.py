@@ -1,6 +1,7 @@
+from django.http import HttpResponseForbidden
 from django.shortcuts import render, get_object_or_404, reverse
-from django.http import HttpResponse, HttpResponseRedirect, HttpResponseForbidden
 from django.views import generic
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 from .forms import CommentForm
 from .models import Post, Category, Comment
@@ -16,7 +17,7 @@ class PostListView(generic.ListView):
 
 
 class PostDisplay(generic.DetailView):
-    template_name = 'blog/post_detail.html'
+    template_name = 'blog/detail.html'
     model = Post
 
     def get_object(self):
@@ -26,6 +27,7 @@ class PostDisplay(generic.DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm(initial={'post': self.object})
         context['comments'] = Comment.objects.filter(post=self.object)
         return context
 
@@ -47,14 +49,6 @@ class PostComment(generic.detail.SingleObjectMixin, generic.FormView):
     def form_valid(self, form):
         form.save()
         return super().form_valid(form)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['form'] = CommentForm(initial={
-            'post': self.object
-        })
-        context['comments'] = Comment.objects.filter(post=self.object)
-        return context
 
     def get_success_url(self):
         return reverse('blog:detail', kwargs={'pk': self.object.pk})
