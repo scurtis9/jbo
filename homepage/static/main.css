@@ -12,8 +12,8 @@ ul {
   margin: 0;
 }
 
-.bg-steel {
-  background-color: #5f788a;
+footer {
+  display: block;
 }
 
 .site-header .navbar-nav .nav-link {

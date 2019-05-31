@@ -1,25 +1,24 @@
 from django.shortcuts import render, get_object_or_404, reverse
 from django.http import HttpResponse, HttpResponseRedirect
-from django.views import generic
+from django.views.generic import ListView, DetailView, FormView, View
+from django.views.generic.detail import SingleObjectMixin
+from django.forms.models import ModelForm
 
 from .models import Choice, Question
 
 
-class IndexView(generic.ListView):
+class PollList(ListView):
     template_name = 'polls/polls.html'
+    model = Question
     context_object_name = 'questions'
 
-    def get_queryset(self):
-        """Return all published questions."""
-        return Question.objects.all()
 
-
-class DetailView(generic.DetailView):
+class PollDetail(DetailView):
     model = Question
     template_name = 'polls/detail.html'
 
 
-class ResultsView(generic.DetailView):
+class ResultsView(DetailView):
     model = Question
     template_name = 'polls/results.html'
 
