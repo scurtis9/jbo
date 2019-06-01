@@ -4,5 +4,5 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
-    path('<int:pk>/', views.ProfileDetail.as_view(), name='profile'),
+    path('<slug:slug>/', views.ProfileDetail.as_view(), name='profile'),
 ]

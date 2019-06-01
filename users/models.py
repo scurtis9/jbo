@@ -1,11 +1,24 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.urls import reverse
+from django.utils.text import slugify
 from PIL import Image
 
 
 class JboUser(AbstractUser):
-    pass
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.get_name_for_slug())
+        super(JboUser, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('users:profile',
+                       kwargs={'slug': self.slug})
+
+    def get_name_for_slug(self):
+        return f'{str.lower(self.first_name)}-{str.lower(self.last_name)}'
 
     def __str__(self):
         return self.email
@@ -13,7 +26,8 @@ class JboUser(AbstractUser):
 
 class Profile(models.Model):
     user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    image = models.ImageField(default='jbo_main.jpeg', upload_to='profile_pics')
+    image = models.ImageField(default='profile_pics/JBO_main.png',
+                              upload_to='profile_pics')
 
     def __str__(self):
         return f'{self.user.username} Profile'

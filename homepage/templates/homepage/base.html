@@ -41,7 +41,7 @@
                                          alt="">
                                 </a>
                                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                    <a class="dropdown-item" href="{% url 'users:profile' user.id %}">Profile</a>
+                                    <a class="dropdown-item" href="{% url 'users:profile' user.slug %}">Profile</a>
                                     <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
                                 </div>
                             </div>
