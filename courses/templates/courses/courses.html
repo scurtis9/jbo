@@ -1,0 +1,8 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+    {% for course in course_list %}
+        <div class="container">
+        <h3><a href="{% url 'courses:course-detail' course.slug %}" class="article-title">{{ course.name }}</a></h3>
+        </div>
+    {% endfor %}
+{% endblock content %}

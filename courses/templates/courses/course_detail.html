@@ -1,0 +1,52 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+    <h3>{{ course.name }}</h3>
+    <div class="content-section">
+        <div class="content-section col-md-4">
+            <table class="table table-sm table-striped">
+                <thead>
+                <tr>
+                    <th scope="col"></th>
+                    <th scope="col">Rating</th>
+                    <th scope="col">Slope</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for teebox in course.teeboxes.all %}
+                    <tr>
+                        <th scope="row">{{ teebox.color }}</th>
+                        <td>{{ teebox.rating }}</td>
+                        <td>{{ teebox.slope }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="content-section">
+            <table class="table">
+                <thead>
+                <tr class="bg-primary">
+                    <th>Hole</th>
+                    {% for hole in course.holes.all %}
+                        <th scope="col">{{ hole.number }}</th>
+                    {% endfor %}
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="table-light">
+                    <th scope="row">Handicap</th>
+                    {% for hole in course.holes.all %}
+                        <td>{{ hole.handicap }}</td>
+                    {% endfor %}
+                </tr>
+                <tr class="bg-success">
+                    <th scope="row">Par</th>
+                    {% for hole in course.holes.all %}
+                        <td>{{ hole.par }}</td>
+                    {% endfor %}
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock content %}

@@ -12,7 +12,7 @@
                         {% endfor %}
                     </small>
                 </div>
-                <h2><a href="{% url 'blog:detail' post.id %}" class="article-title">{{ post.title }}</a></h2>
+                <h2><a href="{% url 'blog:post-detail' post.slug %}" class="article-title">{{ post.title }}</a></h2>
                 <p>
                     {% with content=post.content|striptags %}
                         {{ content|slice:"400" }}

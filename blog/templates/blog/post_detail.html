@@ -23,7 +23,7 @@
     {% if user.is_authenticated %}
         <h3>Leave a comment:</h3>
         <div>
-            <form action="{% url 'blog:detail' post.pk %}" method="post">
+            <form action="{% url 'blog:post-detail' post.slug %}" method="post">
                 {% csrf_token %}
                 <div class="form-group col-md-8">
                     {{ form|crispy }}

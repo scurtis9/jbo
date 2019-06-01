@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
+from django.utils.text import slugify
 
 
 class Category(models.Model):
@@ -23,15 +24,21 @@ class Post(models.Model):
     date_posted = models.DateTimeField(default=timezone.now)
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     categories = models.ManyToManyField("Category", related_name="posts")
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
+
+    def get_absolute_url(self):
+        return reverse('blog:post-detail',
+                       kwargs={'slug': self.slug})
 
     def formatted_markdown(self):
         return markdownify(self.content)
 
     def __str__(self):
         return self.title
-
-    def get_absolute_url(self):
-        return reverse('blog:detail', kwargs={'pk': self.pk})
 
 
 class Comment(models.Model):

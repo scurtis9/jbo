@@ -10,7 +10,7 @@
       <div class="col-md-4">
         <h2>{{ post.title }}</h2>
         <p>{{ post.content|slice:"100" }}</p>
-        <p><a class="btn btn-secondary" href="{% url 'blog:detail' post.id %}" role="button">View details &raquo;</a></p>
+        <p><a class="btn btn-secondary" href="{% url 'blog:post-detail' post.slug %}" role="button">View details &raquo;</a></p>
       </div>
         {% endfor %}
     </div>
