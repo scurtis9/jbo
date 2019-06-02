@@ -1,8 +1,8 @@
 {% extends 'homepage/base.html' %}
 {% block content %}
-    <h3>{{ course.name }}</h3>
+    <h3 class="display-3">{{ course.name }}</h3>
     <div class="content-section">
-        <div class="content-section col-md-4">
+        <div class="content-section col-lg-4">
             <table class="table table-sm table-striped">
                 <thead>
                 <tr>
@@ -22,11 +22,11 @@
                 </tbody>
             </table>
         </div>
-        <div class="content-section">
+        <div class="table-responsive">
             <table class="table">
                 <thead>
                 <tr class="bg-primary">
-                    <th>Hole</th>
+                    <th scope="col">Hole</th>
                     {% for hole in course.holes.all %}
                         <th scope="col">{{ hole.number }}</th>
                     {% endfor %}

@@ -3,15 +3,22 @@
     <div class="jumbotron">
         <h1 class="display-3">Welcome to the Official JBO Site.</h1>
     </div>
-      <div class="container">
-    <!-- Example row of columns -->
-    <div class="row">
-        {% for post in recent_posts %}
-      <div class="col-md-4">
-        <h2>{{ post.title }}</h2>
-        <p>{{ post.content|slice:"100" }}</p>
-        <p><a class="btn btn-secondary" href="{% url 'blog:post-detail' post.slug %}" role="button">View details &raquo;</a></p>
-      </div>
-        {% endfor %}
+    <div class="container">
+        <div class="card-deck mb-3">
+            {% for post in recent_posts %}
+                <div class="card text-center">
+                    <img src="{{ post.author.profile.image.url }}" class="card-img-top" alt="">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content|slice:"100" }}</p>
+                        <a class="btn btn-primary" href="{% url 'blog:post-detail' post.slug %}" role="button">View
+                            details &raquo;</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">{{ post.author.get_full_name }}</small>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
     </div>
 {% endblock content %}
