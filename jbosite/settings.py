@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     # 3rd party
+    'coverage',
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
