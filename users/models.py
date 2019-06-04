@@ -21,7 +21,7 @@ class JboUser(AbstractUser):
         return f'{str.lower(self.first_name)}-{str.lower(self.last_name)}'
 
     def __str__(self):
-        return self.slug
+        return self.get_full_name()
 
 
 class Profile(models.Model):

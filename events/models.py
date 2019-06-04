@@ -9,6 +9,15 @@ from django.utils.text import slugify
 
 # Create your models here.
 class Event(models.Model):
+    """Model to create events.
+    Attributes:
+        title (str)
+        description (str)
+        start_date (date)
+        end_date (date)
+        venue (str)
+        slug (str)
+    """
     title = models.CharField(max_length=50)
     description = models.TextField(max_length=1000, blank=True, null=True)
     start_date = models.DateTimeField(default=timezone.now)
@@ -37,4 +46,4 @@ class Participant(models.Model):
     is_captain = models.BooleanField(verbose_name='Captain', default=False)
 
     def __str__(self):
-        return self.user.get_full_name()
+        return self.user.__str__()
