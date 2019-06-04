@@ -16,7 +16,7 @@ from .models import Course, Hole, TeeBox
 
 class CourseListView(ListView):
     model = Course
-    template_name = 'courses/courses.html'
+    template_name = 'courses/course_list.html'
 
 
 class CourseDetailView(DetailView):

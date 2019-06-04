@@ -10,7 +10,7 @@ class JboUserAdmin(UserAdmin):
     add_form = JboUserCreationForm
     form = JboUserChangeForm
     model = JboUser
-    list_display = ['email', 'username',]
+    list_display = ['username', 'email',]
 
 
 admin.site.register(JboUser, JboUserAdmin)

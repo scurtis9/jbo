@@ -9,7 +9,7 @@ class CoursesViewTest(TestCase):
     def test_courses_list_view_template(self):
         response = self.client.get('/courses/')
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, 'courses/courses.html')
+        self.assertTemplateUsed(response, 'courses/course_list.html')
 
 
 class CourseTest(TestCase):

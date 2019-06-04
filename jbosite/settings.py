@@ -53,7 +53,8 @@ INSTALLED_APPS = [
     'homepage.apps.HomepageConfig',
     'blog.apps.BlogConfig',
     'polls.apps.PollsConfig',
-    'courses.apps.CoursesConfig'
+    'courses.apps.CoursesConfig',
+    'events.apps.EventsConfig'
 ]
 
 MIDDLEWARE = [
