@@ -2,7 +2,7 @@
 {% block content %}
     {% for event in events %}
         <div class="container">
-            {{ event.title }}
+            <a href="{% url 'events:event-detail' event.slug %}">{{ event.title }}</a>
         </div>
     {% endfor %}
 {% endblock content %}

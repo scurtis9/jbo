@@ -1,0 +1,9 @@
+{% extends 'homepage/base.html' %}
+{% block content %}
+    <div class="container">{{ event.title }}</div>
+    <div>
+    {% for participant in participants %}
+        <p>{{ participant }}</p>
+    {% endfor %}
+    </div>
+{% endblock content %}

@@ -34,3 +34,13 @@ class TestParticipant(TestEvent):
             event=self.event
         )
         self.assertEquals(self.event.participant_set.count(), 1)
+
+
+class EventViewTest(TestCase):
+    def test_event_list(self):
+        response = self.client.get('/events/')
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed('events/event_list.html')
+
+    def test_event_detail(self):
+        response = self.client.get('/events/')

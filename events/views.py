@@ -20,3 +20,18 @@ class EventListView(ListView):
     template_name = 'events/event_list.html'
     context_object_name = 'events'
     ordering = ['-start_date']
+
+
+class EventDetailView(DetailView):
+    model = Event
+    template_name = 'events/event_detail.html'
+
+    def get_object(self):
+        obj = super().get_object()
+        obj.save()
+        return obj
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['participants'] = Participant.objects.filter(event=self.object)
+        return context
