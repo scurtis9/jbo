@@ -3,7 +3,7 @@
     <div class="container">{{ event.title }}</div>
     {% for participant in participants %}
     <div class="card col-md-4">
-        <a href="{% url 'users:profile' participant.user.slug %}">
+        <a href="{% url 'users:profile-detail' participant.user.slug %}">
         <img src="{{ participant.user.profile.image.url }}" class="card-img-top" alt="">
         </a>
     <div class="card-body">

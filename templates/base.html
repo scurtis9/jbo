@@ -26,6 +26,8 @@
             <div class="collapse navbar-collapse" id="navbarToggle">
                 <div class="navbar-nav mr-auto">
                     <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+                    <a class="nav-item nav-link" href="{% url 'users:profile-list' %}">Profiles</a>
+                    <a class="nav-item nav-link" href="{% url 'events:event-list' %}">Events</a>
                     <a class="nav-item nav-link" href="{% url 'blog:post-list' %}">Blog</a>
                     <a class="nav-item nav-link" href="{% url 'courses:course-list' %}">Courses</a>
                     <a class="nav-item nav-link" href="{% url 'polls:polls' %}">Polls</a>
