@@ -11,6 +11,7 @@ class JboUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_name_for_slug())
+        self.username = self.slug
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):

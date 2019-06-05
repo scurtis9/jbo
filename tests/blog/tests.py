@@ -19,10 +19,6 @@ class PostTest(TestCase):
 class CategoryTest(TestCase):
     @classmethod
     def setUpTestData(cls):
-        cls.user = JboUser.objects.create(email='test@example.com',
-                                          first_name='Jim',
-                                          last_name='Beam')
-        cls.post = Post.objects.create(title='Test Post', author=cls.user)
         cls.category = Category.objects.create(name='test')
 
     def test_category_returns_name(self):
