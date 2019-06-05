@@ -36,7 +36,7 @@ class Profile(models.Model):
     )
 
     def __str__(self):
-        return f'{self.user} Profile'
+        return f'{self.user.get_full_name()} Profile'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -47,6 +47,3 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
-
-
-# class SocialProfile(models.Model):

@@ -32,14 +32,14 @@
                 </div>
                 <!-- Navbar Right Side -->
                 <div class="navbar-nav">
-                    {% if user.is_authenticated %}
+                    {% if request.user.is_authenticated %}
                         <div class="nav-item dropdown">
                             <a class="navbar-brand nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
                                role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <img class="Avatar" src="{{ user.profile.image.url }}" width="32" height="32" alt="">
+                                <img class="Avatar" src="{{ request.user.profile.image.url }}" width="32" height="32" alt="">
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                                <a class="dropdown-item" href="{% url 'users:profile' user.slug %}">Profile</a>
+                                <a class="dropdown-item" href="{% url 'users:profile' request.user.slug %}">Profile</a>
                                 <a class="dropdown-item" href="{% url 'account_logout' %}">Log Out</a>
                             </div>
                         </div>

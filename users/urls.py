@@ -6,6 +6,7 @@ from . import views
 
 app_name = 'users'
 urlpatterns = [
-    path('<slug:slug>/', never_cache(views.ProfileDetail.as_view()), name='profile'),
-    path('view/<slug:slug>/', views.ProfileView.as_view(), name='profile-view'),
+    path('', views.ProfileListView.as_view(), name='profile-list'),
+    path('<slug:slug>/', never_cache(views.ProfileDetailView.as_view()), name='profile'),
+    path('view/<slug:slug>/', views.SocialProfileView.as_view(), name='profile-detail'),
 ]
