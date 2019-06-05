@@ -5,6 +5,7 @@ from django.urls import reverse
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from django.utils.text import slugify
+from django.conf import settings
 
 
 # Create your models here.
@@ -29,7 +30,7 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
-        super(Event, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def is_past(self):
         if timezone.now() > self.end_date:
@@ -42,7 +43,7 @@ class Event(models.Model):
 
 class Participant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
-    user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_captain = models.BooleanField(verbose_name='Captain', default=False)
 
     def __str__(self):

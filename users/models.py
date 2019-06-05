@@ -3,6 +3,7 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.text import slugify
+from django.conf import settings
 from PIL import Image
 
 
@@ -11,7 +12,7 @@ class JboUser(AbstractUser):
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.get_name_for_slug())
-        super(JboUser, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('users:profile',
@@ -21,16 +22,22 @@ class JboUser(AbstractUser):
         return f'{str.lower(self.first_name)}-{str.lower(self.last_name)}'
 
     def __str__(self):
-        return self.get_full_name()
+        return self.slug
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(get_user_model(), on_delete=models.CASCADE)
-    image = models.ImageField(default='profile_pics/JBO_main.png',
-                              upload_to='profile_pics')
+    user = models.OneToOneField(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='profile'
+    )
+    image = models.ImageField(
+        default='profile_pics/JBO_main.png',
+        upload_to='profile_pics'
+    )
 
     def __str__(self):
-        return f'{self.user.username} Profile'
+        return f'{self.user} Profile'
 
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
@@ -41,3 +48,6 @@ class Profile(models.Model):
             output_size = (300, 300)
             img.thumbnail(output_size)
             img.save(self.image.path)
+
+
+# class SocialProfile(models.Model):

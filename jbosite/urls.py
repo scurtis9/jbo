@@ -18,8 +18,11 @@ from django.conf import settings
 from django.conf.urls import url
 from django.conf.urls.static import static
 from django.urls import include, path
+from django.views.generic.base import TemplateView
+from blog.models import Post
 
 urlpatterns = [
+    path('', TemplateView.as_view(template_name='home.html', extra_context={'recent_posts': Post.recent_posts()}), name='home'),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('profile/', include('users.urls')),
@@ -27,7 +30,6 @@ urlpatterns = [
     path('blog/', include('blog.urls')),
     path('courses/', include('courses.urls')),
     path('events/', include('events.urls')),
-    path('', include('homepage.urls')),
     url(r'^markdownx/', include('markdownx.urls'))
 ]
 

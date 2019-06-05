@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     #Local
     'users.apps.UsersConfig',
-    'homepage.apps.HomepageConfig',
+    # 'homepage.apps.HomepageConfig',
     'blog.apps.BlogConfig',
     'polls.apps.PollsConfig',
     'courses.apps.CoursesConfig',
@@ -139,8 +139,8 @@ ACCOUNT_SESSION_REMEMBER = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_UNIQUE_EMAIL = True
 LOGIN_URL = 'login'
-LOGIN_REDIRECT_URL = 'homepage:home'
-ACCOUNT_LOGOUT_REDIRECT_URL = 'homepage:home'
+LOGIN_REDIRECT_URL = 'home'
+ACCOUNT_LOGOUT_REDIRECT_URL = 'home'
 
 ACCOUNT_FORMS = {'signup': 'forms.forms.MyCustomSignupForm'}
 

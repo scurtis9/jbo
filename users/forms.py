@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.forms import models
 from .models import JboUser, Profile
 
 
@@ -22,3 +23,11 @@ class ProfileChangeForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['image']
+
+
+class JboUserViewForm(models.ModelForm):
+    user = forms.CharField(widget=forms.HiddenInput, required=True)
+
+    class Meta:
+        model = Profile
+        fields = ['user']
