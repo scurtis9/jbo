@@ -1,7 +1,7 @@
 from django.db import models
 from django.utils import timezone
 # from django.contrib.auth.models import User
-from django.contrib.auth import get_user_model
+from django.conf import settings
 from django.urls import reverse
 from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
@@ -22,7 +22,7 @@ class Post(models.Model):
     title = models.CharField(max_length=100)
     content = MarkdownxField()
     date_posted = models.DateTimeField(default=timezone.now)
-    author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     categories = models.ManyToManyField("Category", related_name="posts")
     slug = models.SlugField(unique=True)
 
