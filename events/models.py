@@ -6,6 +6,8 @@ from markdownx.models import MarkdownxField
 from markdownx.utils import markdownify
 from django.utils.text import slugify
 from django.conf import settings
+from PIL import Image
+
 
 
 # Create your models here.
@@ -45,6 +47,17 @@ class Participant(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     is_captain = models.BooleanField(verbose_name='Captain', default=False)
+    player_card = models.ImageField(upload_to='player_cards', blank=True)
 
     def __str__(self):
         return self.user.__str__()
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        img = Image.open(self.player_card.path)
+
+        if img.height > 300 or img.width > 300:
+            output_size = (300, 300)
+            img.thumbnail(output_size)
+            img.save(self.player_card.path)

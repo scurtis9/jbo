@@ -8,14 +8,14 @@ class JboUserCreationForm(UserCreationForm):
 
     class Meta(UserCreationForm):
         model = JboUser
-        fields = ('username', 'email', 'first_name', 'last_name')
+        fields = ('username', 'email', 'first_name', 'last_name',)
 
 
 class JboUserChangeForm(UserChangeForm):
 
     class Meta:
         model = JboUser
-        fields = ('username', 'email')
+        fields = ('username', 'email',)
 
 
 class ProfileChangeForm(forms.ModelForm):

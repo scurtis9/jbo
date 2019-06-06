@@ -1,14 +1,16 @@
 {% extends 'base.html' %}
 {% block content %}
-    <div class="container">{{ event.title }}</div>
-    {% for participant in participants %}
-    <div class="card col-md-4">
-        <a href="{% url 'users:profile-detail' participant.user.slug %}">
-        <img src="{{ participant.user.profile.image.url }}" class="card-img-top" alt="">
-        </a>
-    <div class="card-body">
-        <h4 class="card-title">{{ participant.user }}</h4>
-    </div>
-    </div>
+    <h3 class="display-3 mb-3">{{ event.title }}</h3>
+    <div class="card-deck">
+        {% for participant in participants %}
+            <div class="card text-center col-md-3">
+                <a href="{% url 'users:profile-detail' participant.user.slug %}">
+                <img src="{{ participant.player_card.url }}" class="card-img-top" alt="">
+                </a>
+            <div class="card-body">
+                <h4 class="card-title">{{ participant.user.get_full_name }}</h4>
+            </div>
+            </div>
     {% endfor %}
+    </div>
 {% endblock content %}
