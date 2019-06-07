@@ -10,4 +10,10 @@
             </div>
         </div>
     </div>
+    <h4 class="display-4">Events</h4>
+    <ul class="list-group">
+        {% for event in events %}
+            <li class="list-group-item">{{ event.title }}</li>
+        {% endfor %}
+    </ul>
 {% endblock content %}

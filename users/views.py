@@ -14,6 +14,7 @@ from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import JboUserViewForm
 from .models import JboUser, Profile
+from events.models import Event
 # Create your views here.
 
 
@@ -37,4 +38,5 @@ class SocialProfileView(TemplateView):
         all_users = JboUser.objects.all()
         user = all_users.get(slug=self.kwargs.get('slug'))
         context['user'] = user
+        context['events'] = Event.objects.filter(participant__user=user)
         return context
