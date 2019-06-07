@@ -1,16 +1,28 @@
 {% extends 'base.html' %}
 {% block content %}
     <h3 class="display-3 mb-3">{{ event.title }}</h3>
-    <div class="card-deck">
+    <div class="row">
         {% for participant in participants %}
-            <div class="card text-center col-md-3">
-                <a href="{% url 'users:profile-detail' participant.user.slug %}">
-                <img src="{{ participant.player_card.url }}" class="card-img-top" alt="">
+            <div id="carouselExampleControls-{{ participant.id }}" class="carousel slide col-md-4 mb-3" data-ride="carousel">
+                <div class="carousel-inner">
+                    {% for player_card in participant.playercard_set.all %}
+                        <div class="{% cycle 'carousel-item active' 'carousel-item' 'carousel-item' 'carousel-item' %}">
+                            <img class="d-block w-100" src="{{ player_card.image.url }}" alt="">
+                        </div>
+                    {% endfor %}
+                    {% resetcycle %}
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleControls-{{ participant.id }}" role="button"
+                   data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
                 </a>
-            <div class="card-body">
-                <h4 class="card-title">{{ participant.user.get_full_name }}</h4>
+                <a class="carousel-control-next" href="#carouselExampleControls-{{ participant.id }}" role="button"
+                   data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
             </div>
-            </div>
-    {% endfor %}
+        {% endfor %}
     </div>
 {% endblock content %}

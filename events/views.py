@@ -12,7 +12,7 @@ from django.views.generic import (
 from django.views.generic.detail import SingleObjectMixin
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
-from .models import Event, Participant
+from .models import Event, Participant, PlayerCard
 
 
 class EventListView(ListView):
@@ -34,4 +34,5 @@ class EventDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['participants'] = Participant.objects.filter(event=self.object)
+        context['player_cards'] = PlayerCard.objects.filter(event=self.object)
         return context

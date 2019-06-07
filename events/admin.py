@@ -1,5 +1,10 @@
 from django.contrib import admin
-from .models import Event, Participant
+from .models import Event, Participant, PlayerCard
+
+
+class PlayerCardInline(admin.TabularInline):
+    model = PlayerCard
+    exclude = (Participant,)
 
 
 class ParticipantInLine(admin.TabularInline):
@@ -10,6 +15,7 @@ class EventAdmin(admin.ModelAdmin):
     list_display = ['title']
     inlines = [
         ParticipantInLine,
+        PlayerCardInline
     ]
 
 
