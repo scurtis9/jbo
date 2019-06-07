@@ -1,9 +1,20 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% block content %}
-    {% for profile in profiles %}
-        <div class="content-section">
-            <a href="{% url 'users:profile-detail' profile.user %}">{{ profile }}</a>
+    <div class="row justify-content-around">
+        {% for profile in profiles %}
+    <div class="content-section col-xl-5">
+    <a href="{% url 'users:profile-detail' profile.user %}">
+        <div class="media">
+{#            <a href="{% url 'users:profile-detail' profile.user %}">#}
+            <img src="{{ profile.image.url }}" alt="" class="rounded-circle account-img">
+            <div class="media-body">
+                <h2 class="account-heading">{{ profile.user.get_full_name }}</h2>
+                <p class="text-secondary">{{ profile.user.email }}</p>
+            </div>
         </div>
+        </a>
+    </div>
     {% endfor %}
+    </div>
 {% endblock content %}

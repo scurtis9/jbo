@@ -4,7 +4,6 @@ from .models import Event, Participant, PlayerCard
 
 class PlayerCardInline(admin.TabularInline):
     model = PlayerCard
-    exclude = (Participant,)
 
 
 class ParticipantInLine(admin.TabularInline):
@@ -17,6 +16,7 @@ class EventAdmin(admin.ModelAdmin):
         ParticipantInLine,
         PlayerCardInline
     ]
+
 
 
 admin.site.register(Event, EventAdmin)

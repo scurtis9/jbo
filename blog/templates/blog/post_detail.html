@@ -17,7 +17,10 @@
                 {% endif %}
             </div>
             <h2 class="article-title">{{ post.title }}</h2>
-            <p class="article-content">{{ post.formatted_markdown|safe }}</p>
+            <div class="article-content">
+                {{ post.formatted_markdown|safe }}
+            </div>
+{#            <p class="article-content">{{ post.formatted_markdown|safe }}</p>#}
             {#            <p class="article-content">{{ post.content }}</p>#}
         </div>
     </article>
