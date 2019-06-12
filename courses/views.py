@@ -31,6 +31,13 @@ class CourseCreateView(CreateView):
 
 def manage_course(request, course_slug):
     course = Course.objects.get(slug=course_slug)
+    TeeBoxInlineFormSet = inlineformset_factory(
+        Course,
+        TeeBox,
+        fields=('color', 'rating', 'slope'),
+        exclude=('course',),
+        max_num=4
+    )
     HoleInlineFormSet = inlineformset_factory(
         Course,
         Hole,
@@ -39,13 +46,15 @@ def manage_course(request, course_slug):
         max_num=18
     )
     if request.method == "POST":
-        formset = HoleInlineFormSet(request.POST, request.FILES, instance=course)
-        if formset.is_valid():
-            formset.save()
-            # Do something. Should generally end with a redirect. For example:
+        teebox_formset = TeeBoxInlineFormSet(request.POST, request.FILES, instance=course, prefix='teeboxes')
+        hole_formset = HoleInlineFormSet(request.POST, request.FILES, instance=course, prefix='holes')
+        if teebox_formset.is_valid() and hole_formset.is_valid():
+            teebox_formset.save()
+            hole_formset.save()
             return HttpResponseRedirect(course.get_absolute_url())
     else:
-        formset = HoleInlineFormSet(instance=course)
-    return render(request, 'courses/course_manage.html', {'formset': formset, 'course': course})
+        teebox_formset = TeeBoxInlineFormSet(instance=course, prefix='teeboxes')
+        hole_formset = HoleInlineFormSet(instance=course, prefix='holes')
+    return render(request, 'courses/course_manage.html', {'teebox_formset': teebox_formset, 'hole_formset': hole_formset, 'course': course})
 
 
